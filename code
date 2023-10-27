@@ -1,0 +1,41 @@
+import tkinter as tk
+
+def clicar(botao):
+    valor_atual = entrada.get()
+    if botao == "=":
+        try:
+            resultado = eval(valor_atual)
+            entrada.delete(0, tk.END)
+            entrada.insert(tk.END, str(resultado))
+        except:
+            entrada.delete(0, tk.END)
+            entrada.insert(tk.END, "Erro")
+    elif botao == "C":
+        entrada.delete(0, tk.END)
+    else:
+        entrada.insert(tk.END, botao)
+
+janela = tk.Tk()
+janela.title("Calculadora")
+
+entrada = tk.Entry(janela, width=20)
+entrada.grid(row=0, column=0, columnspan=4)
+
+botoes = [
+    '7', '8', '9', '/',
+    '4', '5', '6', '*',
+    '1', '2', '3', '-',
+    '0', 'C', '=', '+'
+]
+
+linha = 1
+coluna = 0
+
+for botao in botoes:
+    tk.Button(janela, text=botao, width=5, height=2, command=lambda b=botao: clicar(b)).grid(row=linha, column=coluna)
+    coluna += 1
+    if coluna > 3:
+        coluna = 0
+        linha += 1
+
+janela.mainloop()
